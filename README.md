@@ -1,5 +1,8 @@
 ## School Management App UI Flutter | Backend Firebase
-Flutter based School Management App | Flutter | Backend Firebase
+Flutter-based School Management App | Flutter | Backend Firebase
+Used GetX as a State Management Framework
+# Authintication is determined by logging, every user has a different route and dashboard. automatically will be determined after login. 
+
 
 ## Screenshot
 Related UI || ![Related UI ](https://github.com/deepak07082/School-management-system-flutter/assets/39463871/36332694-8641-4400-be12-5a982475882e)
