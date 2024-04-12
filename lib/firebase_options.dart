@@ -50,8 +50,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD5RzxF0JuD6fEjuwhil4ycjI5G5agcTAM',
-    appId: '1:884331683459:web:8e75f83e049835ca9185b6',
+
     messagingSenderId: '884331683459',
     projectId: 'fir-auth-aac43',
     authDomain: 'fir-auth-aac43.firebaseapp.com',
@@ -60,8 +59,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBLBSVMU_Bl8Gug-32e8LwFNRCejCYk_bQ',
-    appId: '1:884331683459:android:25bfd415563455549185b6',
+  
     messagingSenderId: '884331683459',
     projectId: 'fir-auth-aac43',
     storageBucket: 'fir-auth-aac43.appspot.com',
