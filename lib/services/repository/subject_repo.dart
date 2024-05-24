@@ -1,4 +1,6 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -85,6 +87,31 @@ class SubjectRepository extends GetxController {
       for (var doc in querySnapshot.docs) {
         subjects.add(SubjectModel.fromSnapshot(doc));
       }
+      return subjects;
+    } on FirebaseException catch (e) {
+      throw KFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const KFormatException();
+    } on PlatformException catch (e) {
+      throw KPlatformException(e.code).message;
+    } catch (e) {
+      throw "Some Thing Wrong Please Try Again";
+    }
+  }
+
+  //Fetch ALl Data
+  Future<List<SubjectModel>> fetchAllSubjectDataByGrade(grade) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("Subjects")
+          .where('Grade', isEqualTo: grade.toString())
+          .get();
+
+      List<SubjectModel> subjects = [];
+      for (var doc in querySnapshot.docs) {
+        subjects.add(SubjectModel.fromSnapshot(doc));
+      }
+
       return subjects;
     } on FirebaseException catch (e) {
       throw KFirebaseException(e.code).message;

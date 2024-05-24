@@ -71,7 +71,7 @@ class ParentModel {
       );
 
   // Create a UserModel instance from a Map
-  factory ParentModel.fromSnapshot(DocumentSnapshot document) {
+  factory ParentModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return ParentModel(

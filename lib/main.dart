@@ -5,12 +5,12 @@ import 'package:schooll/Screens/SpleashScreen.dart';
 import 'package:schooll/services/binding.dart';
 // flutter run --no-sound-null-safety
 
-Future<void> main() async {
+void main() async {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   void initState() {
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SpleashScreen(),
+      home: const SpleashScreen(),
     );
   }
 }

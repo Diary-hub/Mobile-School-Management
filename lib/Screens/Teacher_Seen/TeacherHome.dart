@@ -3,9 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:schooll/Screens/Attendance/Attendance.dart';
-import 'package:schooll/Screens/Subject.dart';
 import 'package:schooll/Screens/Teacher_Seen/Exam.dart';
+import 'package:schooll/Screens/Teacher_Seen/Marks.dart';
 import 'package:schooll/Screens/Teacher_Seen/TeacherAccout.dart';
 import 'package:schooll/Screens/Teacher_Seen/TeacherAttend.dart';
 import 'package:schooll/Screens/Teacher_Seen/TeacherDetailCard.dart';
@@ -202,7 +201,7 @@ class _Teacher_HomeState extends State<Teacher_Home> with SingleTickerProviderSt
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) => const Subject(),
+                                    builder: (BuildContext context) => const MarksScreen(),
                                   ));
                             },
                             child: const DashboardCard(

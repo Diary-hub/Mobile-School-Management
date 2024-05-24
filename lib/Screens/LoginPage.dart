@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     WidgetsFlutterBinding.ensureInitialized();
     Firebase.initializeApp();
     super.initState();
-    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    animationController = AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = Tween(begin: -1.0, end: 0.0)
         .animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 

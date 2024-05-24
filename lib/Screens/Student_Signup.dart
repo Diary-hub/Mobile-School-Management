@@ -6,7 +6,7 @@ import 'package:schooll/services/utils/loaders/snack_loaders.dart';
 import 'package:schooll/services/utils/validators/validation.dart';
 
 class StSignUp extends StatefulWidget {
-  const StSignUp({Key? key}) : super(key: key);
+  const StSignUp({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -17,7 +17,7 @@ class _StSignUpState extends State<StSignUp> {
   @override
   Widget build(BuildContext context) {
     final controller = StudentController.instance;
-    GlobalKey<FormState> formkey2 = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Student Sign Up'),
@@ -28,7 +28,7 @@ class _StSignUpState extends State<StSignUp> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(children: [
           Form(
-            key: formkey2,
+            key: controller.formkey2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -220,20 +220,31 @@ class _StSignUpState extends State<StSignUp> {
                 Transform(
                   transform: Matrix4.translationValues(0.5, 0, 0),
                   child: DropdownSearch<String>(
-                    maxHeight: 150,
                     validator: (v) => v == null ? "Please Select The Grade" : null,
-                    hint: "Please Select The Grade",
-                    mode: Mode.MENU,
-                    showSelectedItem: true,
                     items: const [
                       '1',
                       '2',
                       '3',
                       '4',
                     ],
-                    showClearButton: false,
                     onChanged: (value) {
-                      controller.gradeController.text = value;
+                      controller.gradeController.text = value!;
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Transform(
+                  transform: Matrix4.translationValues(0.5, 0, 0),
+                  child: DropdownSearch<String>(
+                    validator: (v) => v == null ? "Please Select The Gender" : null,
+                    items: const [
+                      'Male',
+                      'Female',
+                    ],
+                    onChanged: (value) {
+                      controller.genderController.text = value!;
                     },
                   ),
                 ),
@@ -243,7 +254,7 @@ class _StSignUpState extends State<StSignUp> {
                 SizedBox(
                   child: MaterialButton(
                     onPressed: () {
-                      if (formkey2.currentState!.validate() != true) {
+                      if (controller.formkey2.currentState!.validate() != true) {
                         KLoaders.errorSnackBar(
                             title: "Something Wrong !", message: "Please Fill The Informations");
 

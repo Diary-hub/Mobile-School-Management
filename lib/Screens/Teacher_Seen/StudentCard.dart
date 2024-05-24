@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:schooll/Screens/Teacher_Seen/attendAdder.dart';
+import 'package:schooll/Screens/Teacher_Seen/AttendAdder.dart';
 import 'package:schooll/services/controller/attend_controller.dart';
 import 'package:schooll/services/controller/teacher_controller.dart';
 
@@ -11,16 +11,18 @@ class StudentListAttendanceCard extends StatefulWidget {
   final String date;
   final String subject;
   final String student;
+  final String parentUID;
   final int index;
 
   const StudentListAttendanceCard({
-    Key? key,
+    super.key,
     required this.date,
     required this.time,
     required this.subject,
     required this.student,
     required this.index,
-  }) : super(key: key);
+    required this.parentUID,
+  });
 
   @override
   _StudentListAttendanceCardState createState() => _StudentListAttendanceCardState();
@@ -131,13 +133,14 @@ class _StudentListAttendanceCardState extends State<StudentListAttendanceCard>
                     ],
                   ),
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.redAccent[100]),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent[100]),
                       onPressed: () {
                         controller.subjectController.text =
                             TeacherController.instance.teacher.value.subject;
                         controller.gradeController.text =
                             TeacherController.instance.teacher.value.grade;
                         controller.studentController.text = widget.subject;
+                        controller.parentController.text = widget.parentUID;
 
                         Get.to(AttendAdder(index: widget.index));
                       },

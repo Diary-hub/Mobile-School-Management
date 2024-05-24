@@ -7,7 +7,7 @@ import 'package:schooll/services/controller/attend_controller.dart';
 import 'package:schooll/services/controller/student_controller.dart';
 
 class TeacherStudentList extends StatefulWidget {
-  const TeacherStudentList({Key? key}) : super(key: key);
+  const TeacherStudentList({super.key});
 
   @override
   _TeacherStudentListState createState() => _TeacherStudentListState();
@@ -35,6 +35,7 @@ class _TeacherStudentListState extends State<TeacherStudentList> {
                 itemCount: studentController.studentList.length,
                 itemBuilder: (context, index) {
                   return StudentListAttendanceCard(
+                    parentUID: studentController.studentList[index].parentUID!,
                     index: index,
                     time: "",
                     student: studentController.studentList[index].idNumber,

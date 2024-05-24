@@ -8,9 +8,9 @@ import 'package:schooll/Screens/Student_Seen/Account.dart';
 import 'package:schooll/Screens/Student_Seen/StudentAttendace.dart';
 import 'package:schooll/Screens/Student_Seen/StudentDetailCard.dart';
 import 'package:schooll/Screens/Student_Seen/StudentExam.dart';
+import 'package:schooll/Screens/Student_Seen/StudentMarks.dart';
 import 'package:schooll/Screens/Student_Seen/Student_Drawer.dart';
 import 'package:schooll/Screens/Student_Seen/SubjectStudent.dart';
-import 'package:schooll/Screens/Subject.dart';
 import 'package:schooll/Widgets/BouncingButton.dart';
 import 'package:schooll/Widgets/DashboardCards.dart';
 import 'package:schooll/services/controller/attend_controller.dart';
@@ -241,7 +241,7 @@ class _Student_HomeState extends State<Student_Home> with SingleTickerProviderSt
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) => const Subject(),
+                                    builder: (BuildContext context) => const MarksStudent(),
                                   ));
                             },
                             child: const DashboardCard(

@@ -6,7 +6,8 @@ import 'package:schooll/services/utils/exception/firebase_exceptions.dart';
 import 'package:schooll/services/utils/exception/format_exceptions.dart';
 import 'package:schooll/services/utils/exception/platform_exceptions.dart';
 
-import '../models/Attendance_model.dart';
+import 'dart:async';
+import '../models/attendance_model.dart';
 
 class AttendanceRepository extends GetxController {
   static AttendanceRepository get instance => Get.find();

@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooll/Screens/Tacher.dart';
 import 'package:schooll/services/controller/subject_controller.dart';
+import 'package:schooll/services/models/teacher_model.dart';
+import 'package:schooll/services/repository/auth_repo.dart';
 import 'package:schooll/services/repository/teacher_repo.dart';
-import '../models/teacher_model.dart';
-import '../utils/helpers/network.dart';
-import '../utils/loaders/snack_loaders.dart';
+import 'package:schooll/services/utils/helpers/network.dart';
+import 'package:schooll/services/utils/loaders/snack_loaders.dart';
 
 class TeacherController extends GetxController {
   static TeacherController get instance => Get.find();
@@ -33,6 +34,7 @@ class TeacherController extends GetxController {
   final TextEditingController whoLivesWithController = TextEditingController();
   String gradeController = '';
   String subjectController = '';
+  String departmentController = '';
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
@@ -89,21 +91,26 @@ class TeacherController extends GetxController {
       UserCredential teacherAuth = await teacherRepository.registerWithEmailAndPassword(
           emailController.text.trim(), passwordController.text);
 
+      await AuthenticationRepository.instance.logoutNew();
+      await AuthenticationRepository.instance.loginWithEmailAndPasswordSaved();
+
       // Save Teacher Record
       final teacher = TeacherModel(
-          subject: subjectController,
-          id: teacherAuth.user.uid,
-          type: 'Teacher',
-          firstName: firstNameController.text,
-          lastName: lastNameController.text,
-          phoneNumber: phoneController.text,
-          email: emailController.text,
-          secondName: secondNameController.text,
-          birthdate: birthdateController.text,
-          address: addressController.text,
-          idNumber: idNumberController.text,
-          livesWith: whoLivesWithController.text,
-          grade: gradeController);
+        subject: subjectController,
+        id: teacherAuth.user!.uid,
+        type: 'Teacher',
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        phoneNumber: phoneController.text,
+        email: emailController.text,
+        secondName: secondNameController.text,
+        birthdate: birthdateController.text,
+        address: addressController.text,
+        idNumber: idNumberController.text,
+        livesWith: whoLivesWithController.text,
+        grade: gradeController,
+        department: departmentController,
+      );
 
       await subjectController1.fetchSubjectRecordByName(subjectController);
       await subjectController1.updateSubjectTeacher(teacher.getFulltName);

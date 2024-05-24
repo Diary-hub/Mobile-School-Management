@@ -1,17 +1,17 @@
 // ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api, import_of_legacy_library_into_null_safe, file_names, unrelated_type_equality_checks
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:schooll/Screens/Student_Signup.dart';
 import 'package:schooll/Screens/home.dart';
+import 'package:schooll/Screens/profileViwerStudent.dart';
 import 'package:schooll/services/controller/parent_controller.dart';
 
 import '../services/controller/student_controller.dart';
 
 class Student extends StatefulWidget {
-  const Student({Key? key}) : super(key: key);
+  const Student({super.key});
 
   @override
   _StudentState createState() => _StudentState();
@@ -27,6 +27,7 @@ class _StudentState extends State<Student> with SingleTickerProviderStateMixin {
   TextEditingController textController = TextEditingController();
 
   String grade = '0';
+  String gender = '0';
 
   @override
   void initState() {
@@ -34,7 +35,7 @@ class _StudentState extends State<Student> with SingleTickerProviderStateMixin {
     controller.fetchAllStudentRecord();
     Firebase.initializeApp();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    animationController = AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = Tween(begin: -1.0, end: 0.0)
         .animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
@@ -57,6 +58,8 @@ class _StudentState extends State<Student> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     animationController.forward();
+
+    RxString search = ''.obs;
 
     return AnimatedBuilder(
       animation: animationController,
@@ -84,20 +87,25 @@ class _StudentState extends State<Student> with SingleTickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.only(
                           left: 50,
+                          top: 30,
                           right: 50,
                         ),
-                        child: AnimSearchBar(
-                            width: 450,
-                            textController: textController,
-                            rtl: false,
-                            onSuffixTap: () {
+                        child: SizedBox(
+                          width: 420,
+                          child: TextFormField(
+                            decoration: const InputDecoration(border: OutlineInputBorder()),
+                            controller: textController,
+                            onChanged: (value) {
+                              search.value = value;
+                            },
+                            onSaved: (value) {},
+                            onFieldSubmitted: (value) {
                               setState(() {
-                                textController.clear();
+                                search.value = value;
                               });
                             },
-                            onSubmitted: (String searchText) {
-                              print('Search submitted: $searchText');
-                            }),
+                          ),
+                        ),
                       ),
 
                       ///////////////
@@ -160,6 +168,61 @@ class _StudentState extends State<Student> with SingleTickerProviderStateMixin {
                         ),
                       ),
                     ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 10),
+                        child: DropdownButton<String>(
+                          value: gender,
+                          // icon: Icon(Icons.search),
+                          style: const TextStyle(color: Colors.blueGrey),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.blueGrey,
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              gender = newValue!;
+                              if (gender != '0') {
+                                if (grade != '0') {
+                                  controller.filter = controller.studentList
+                                      .where((student) => student.grade == grade)
+                                      .toList();
+                                  controller.length.value = controller.filter.length;
+                                } else {
+                                  controller.filter = controller.studentList;
+                                  controller.length.value = controller.filter.length;
+                                }
+
+                                gender == '1'
+                                    ? controller.filter = controller.filter
+                                        .where((student) => student.gender == "Male")
+                                        .toList()
+                                    : controller.filter = controller.filter
+                                        .where((student) => student.gender == "Female")
+                                        .toList();
+
+                                controller.length.value = controller.filter.length;
+                              } else {
+                                if (grade != '0') {
+                                  controller.filter = controller.studentList
+                                      .where((student) => student.grade == grade)
+                                      .toList();
+                                  controller.length.value = controller.filter.length;
+                                } else {
+                                  controller.filter = controller.studentList;
+                                  controller.length.value = controller.filter.length;
+                                }
+                              }
+                            });
+                          },
+                          items: const [
+                            DropdownMenuItem(value: '0', child: Text('All')),
+                            DropdownMenuItem(value: '1', child: Text('Male')),
+                            DropdownMenuItem(value: '2', child: Text('Female')),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Obx(
@@ -170,38 +233,82 @@ class _StudentState extends State<Student> with SingleTickerProviderStateMixin {
                       child: ListView.builder(
                         itemCount: controller.length.value,
                         itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {},
-                            borderRadius: BorderRadius.circular(20),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.amber[100],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ListTile(
-                                    trailing: IconButton(
-                                        onPressed: () {
-                                          String id = controller.filter[index].idNumber;
-                                          controller.deletedIndex.value = index;
-                                          controller.deleteStudentDataRecord(id);
-                                        },
-                                        icon: const Icon(Icons.delete)),
-                                    leading: const Image(
-                                        image: NetworkImage(
-                                            "https://cdn-icons-png.flaticon.com/512/2784/2784461.png")),
-                                    title: Text(
-                                        "Name: ${grade != '0' ? controller.filter[index].getFulltName : controller.studentList[index].getFulltName}"),
-                                    subtitle: Text(
-                                        "Grade: ${grade != '0' ? controller.filter[index].grade : controller.studentList[index].grade}"),
+                          if (textController.text == '' || textController.text == ' ') {
+                            return InkWell(
+                              onTap: () {
+                                Get.to(
+                                    () => ProfileViewerStudent(studnet: controller.filter[index]));
+                              },
+                              borderRadius: BorderRadius.circular(20),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.amber[100],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListTile(
+                                      trailing: IconButton(
+                                          onPressed: () {
+                                            String id = controller.filter[index].idNumber;
+                                            controller.deletedIndex.value = index;
+                                            controller.deleteStudentDataRecord(id);
+                                          },
+                                          icon: const Icon(Icons.delete)),
+                                      leading: const Image(
+                                          image: NetworkImage(
+                                              "https://cdn-icons-png.flaticon.com/512/2784/2784461.png")),
+                                      title: Text(
+                                          "Name: ${grade != '0' ? controller.filter[index].getFulltName : controller.studentList[index].getFulltName}"),
+                                      subtitle: Text(
+                                          "Grade: ${grade != '0' ? controller.filter[index].grade : controller.studentList[index].grade}"),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
+                            );
+                          } else {
+                            if (controller.filter[index].getFulltName
+                                .toLowerCase()
+                                .contains(textController.text.toLowerCase())) {
+                              return InkWell(
+                                onTap: () {},
+                                borderRadius: BorderRadius.circular(20),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.amber[100],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ListTile(
+                                        trailing: IconButton(
+                                            onPressed: () {
+                                              String id = controller.filter[index].idNumber;
+                                              controller.deletedIndex.value = index;
+                                              controller.deleteStudentDataRecord(id);
+                                            },
+                                            icon: const Icon(Icons.delete)),
+                                        leading: const Image(
+                                            image: NetworkImage(
+                                                "https://cdn-icons-png.flaticon.com/512/2784/2784461.png")),
+                                        title: Text(
+                                            "Name: ${grade != '0' ? controller.filter[index].getFulltName : controller.studentList[index].getFulltName}"),
+                                        subtitle: Text(
+                                            "Grade: ${grade != '0' ? controller.filter[index].grade : controller.studentList[index].grade}"),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return const Text('');
+                            }
+                          }
                         },
                       ),
                     ),

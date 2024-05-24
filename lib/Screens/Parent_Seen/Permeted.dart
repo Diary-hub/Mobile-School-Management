@@ -1,11 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api, file_names
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooll/Widgets/Attendance/Permession.dart';
 import 'package:schooll/services/controller/attend_controller.dart';
 
 class ParentPermessionAttendance extends StatefulWidget {
-  const ParentPermessionAttendance({Key? key}) : super(key: key);
+  const ParentPermessionAttendance({super.key});
 
   @override
   _ParentPermessionAttendanceState createState() => _ParentPermessionAttendanceState();
@@ -30,7 +31,9 @@ class _ParentPermessionAttendanceState extends State<ParentPermessionAttendance>
               child: ListView.builder(
                 itemCount: controller.attendanceList.length,
                 itemBuilder: (context, index) {
-                  if (!controller.attendanceList[index].isPermeted) {
+                  if (!controller.attendanceList[index].isPermeted ||
+                      controller.attendanceList[index].parentUID !=
+                          FirebaseAuth.instance.currentUser!.uid) {
                     return Container();
                   }
                   return PermessionCard(

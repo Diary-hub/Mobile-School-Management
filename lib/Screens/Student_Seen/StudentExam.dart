@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooll/Screens/Student_Seen/St_Home.dart';
 import 'package:schooll/Widgets/Exams/SubjectCard.dart';
-import 'package:randomizer/randomizer.dart';
 import 'package:schooll/services/controller/exam_controller.dart';
 import 'package:schooll/services/controller/student_controller.dart';
 import 'package:schooll/services/controller/subject_controller.dart';
 
 class StudentExamResult extends StatefulWidget {
-  const StudentExamResult({Key? key}) : super(key: key);
+  const StudentExamResult({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -20,7 +19,6 @@ class StudentExamResult extends StatefulWidget {
 class _StudentExamResultState extends State<StudentExamResult> with SingleTickerProviderStateMixin {
   late Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   late AnimationController animationController;
-  Randomizer randomcolor = Randomizer();
   final controller = ExamAdderController.instance;
   final subjectsController = SubjectAdderController.instance;
   final studentController = StudentController.instance;
@@ -33,7 +31,7 @@ class _StudentExamResultState extends State<StudentExamResult> with SingleTicker
 
     //SystemChrome.setEnabledSystemUIOverlays([]);
 
-    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    animationController = AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = Tween(begin: -1.0, end: 0.0)
         .animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
@@ -87,18 +85,14 @@ class _StudentExamResultState extends State<StudentExamResult> with SingleTicker
                             Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
                         child: DropdownSearch<String>(
                           validator: (v) => v == null ? "Please Select The Subject" : null,
-                          hint: "Please Select The Subject",
-                          mode: Mode.MENU,
-                          showSelectedItem: true,
                           items: subjectsController.subjectList
                               .map((element) => element.subject)
                               .toList()
                             ..add('All'),
-                          showClearButton: false,
                           selectedItem: grade,
                           onChanged: (newValue) {
                             setState(() {
-                              grade = newValue;
+                              grade = newValue!;
                               if (grade != 'All') {
                                 controller.filter = controller.examList
                                     .where((exam) => exam.examSubject == grade)

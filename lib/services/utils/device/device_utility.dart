@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class KDeviceUtils {
 
   static void vibrate(Duration duration) {
     HapticFeedback.vibrate();
-    Future.delayed(duration, () => HapticFeedback.vibrate());
+    // Future.delayed(duration, () => HapticFeedback.vibrate());
   }
 
   static Future<void> setPreferredOrientations(List<DeviceOrientation> orientations) async {

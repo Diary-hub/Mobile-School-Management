@@ -45,7 +45,7 @@ class SubjectModel {
       );
 
   // Create a UserModel instance from a Map
-  factory SubjectModel.fromSnapshot(DocumentSnapshot document) {
+  factory SubjectModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return SubjectModel(

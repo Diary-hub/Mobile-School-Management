@@ -154,6 +154,19 @@ class SubjectAdderController extends GetxController {
     }
   }
 
+// Get User Data
+  Future<void> fetchAllSubjectRecordByGrade(grade) async {
+    try {
+      profileLoading.value = true;
+      final subjectList = await subjectRepository.fetchAllSubjectDataByGrade(grade);
+      this.subjectList(subjectList);
+    } catch (e) {
+      subjectList(SubjectModel.emptyList());
+    } finally {
+      profileLoading.value = false;
+    }
+  }
+
   Future<void> updateSubjectTeacher(String techerNmae) async {
     try {
       // Start Loader

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooll/Screens/Teacher_Seen/TeacherAttend.dart';
-import 'package:schooll/services/models/Attendance_model.dart';
+import 'package:schooll/services/models/attendance_model.dart';
 import 'package:schooll/services/repository/attend_repo.dart';
 import '../utils/helpers/network.dart';
 import '../utils/loaders/snack_loaders.dart';
@@ -22,6 +22,7 @@ class AttendanceController extends GetxController {
   final TextEditingController gradeController = TextEditingController();
   final TextEditingController subjectController = TextEditingController();
   final TextEditingController studentController = TextEditingController();
+  final TextEditingController parentController = TextEditingController();
 
   final TextEditingController dateOfAttendanceController = TextEditingController();
   final TextEditingController startTimeController = TextEditingController();
@@ -80,6 +81,7 @@ class AttendanceController extends GetxController {
       // Save attendance Record
 
       final attendance = AttendanceModel(
+        parentUID: parentController.text,
         dateOfAttendance: dateOfAttendanceController.text,
         startTime: startTimeController.text,
         endTime: endTimeController.text,

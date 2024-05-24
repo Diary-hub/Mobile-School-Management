@@ -4,7 +4,7 @@ import 'package:schooll/services/utils/formatters/formatter.dart';
 
 class EmployeeModel {
   EmployeeModel({
-    required this.id,
+    this.id,
     required this.firstName,
     required this.lastName,
     required this.phoneNumber,
@@ -13,12 +13,10 @@ class EmployeeModel {
     required this.birthdate,
     required this.address,
     required this.idNumber,
-    required this.livesWith,
-    required this.grade,
     required this.type,
   });
 
-  final String id;
+  final String? id;
   final String firstName;
   final String secondName;
   final String lastName;
@@ -27,8 +25,6 @@ class EmployeeModel {
   final String phoneNumber;
   final String email;
   final String idNumber;
-  final String livesWith;
-  final String grade;
   final String type;
 
   String get getFirstName => firstName;
@@ -48,8 +44,6 @@ class EmployeeModel {
       'PhoneNumber': phoneNumber,
       'Email': email,
       'IDNumber': idNumber,
-      'LivesWith': livesWith,
-      'Grade': grade,
       'Type': type,
     };
   }
@@ -62,15 +56,15 @@ class EmployeeModel {
         email: '',
         address: '',
         birthdate: '',
-        grade: '',
         idNumber: '',
-        livesWith: '',
         secondName: '',
         type: '',
       );
 
+  static List<EmployeeModel> emptyList() => []; // Define the static method
+
   // Create a UserModel instance from a Map
-  factory EmployeeModel.fromSnapshot(DocumentSnapshot document) {
+  factory EmployeeModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return EmployeeModel(
@@ -81,9 +75,7 @@ class EmployeeModel {
         email: data['Email'] ?? '',
         address: data['Address'] ?? '',
         birthdate: data['BirthDate'] ?? '',
-        grade: data['Grade'] ?? '',
         idNumber: data['IDNumber'] ?? '',
-        livesWith: data['LivesWith'] ?? '',
         secondName: data['SecondName'] ?? '',
         type: data['Type'] ?? '',
       );

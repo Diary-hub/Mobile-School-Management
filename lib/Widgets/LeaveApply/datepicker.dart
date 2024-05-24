@@ -25,13 +25,11 @@ class CustomDatePicker extends StatelessWidget {
       //initialValue: _initialValue,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      calendarTitle: "${title}",
+      calendarTitle: title,
       confirmText: "Confirm",
       enableSuggestions: true,
       //locale: Locale('en', 'US'),
       onChanged: onchanged,
-      validator: validator,
-      onSaved: saved,
     );
   }
 }

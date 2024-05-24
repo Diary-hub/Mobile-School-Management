@@ -11,6 +11,7 @@ class AttendanceModel {
     required this.subject,
     required this.studentName,
     required this.isPermeted,
+    required this.parentUID,
   });
 
   final String? id;
@@ -21,6 +22,7 @@ class AttendanceModel {
   final String subject;
   final String studentName;
   final bool isPermeted;
+  final String parentUID;
 
   String get getDate => dateOfAttendance;
   String get getDurattion => "$startTime-$endTime";
@@ -35,6 +37,7 @@ class AttendanceModel {
       'Subject': subject,
       'StudentName': studentName,
       'IsPermeted': isPermeted,
+      'ParentUID': parentUID,
     };
   }
 
@@ -47,12 +50,13 @@ class AttendanceModel {
         endTime: '',
         grade: '',
         subject: '',
+        parentUID: '',
         studentName: '',
         isPermeted: false,
       );
 
   // Create a AttendanceModel instance from a Map
-  factory AttendanceModel.fromSnapshot(DocumentSnapshot document) {
+  factory AttendanceModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return AttendanceModel(
@@ -64,6 +68,7 @@ class AttendanceModel {
         subject: data['Subject'] ?? '',
         studentName: data['StudentName'] ?? '',
         isPermeted: data['IsPermeted'] ?? '',
+        parentUID: data['ParentUID'] ?? '',
       );
     } else {
       return AttendanceModel.empty();

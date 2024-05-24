@@ -1,8 +1,13 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:schooll/Screens/Added.dart';
 
 class CarSignUp extends StatefulWidget {
+  const CarSignUp({Key? key}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _CarSignUpState createState() => _CarSignUpState();
 }
 
@@ -21,7 +26,7 @@ class _CarSignUpState extends State<CarSignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Car Sign Up'),
+        title: const Text('Car Sign Up'),
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
       ),
@@ -32,18 +37,16 @@ class _CarSignUpState extends State<CarSignUp> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 TextFormField(
                   controller: firstNameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Car Brand',
                     contentPadding: EdgeInsets.all(5),
                     labelStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        fontFamily: 'Montserrat', fontWeight: FontWeight.bold, color: Colors.black),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.blueGrey,
@@ -51,18 +54,16 @@ class _CarSignUpState extends State<CarSignUp> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 TextFormField(
                   controller: secondNameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Car Model',
                     contentPadding: EdgeInsets.all(5),
                     labelStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        fontFamily: 'Montserrat', fontWeight: FontWeight.bold, color: Colors.black),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.blueGrey,
@@ -70,18 +71,16 @@ class _CarSignUpState extends State<CarSignUp> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 TextFormField(
                   controller: lastNameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Car Number',
                     contentPadding: EdgeInsets.all(5),
                     labelStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        fontFamily: 'Montserrat', fontWeight: FontWeight.bold, color: Colors.black),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.blueGrey,
@@ -89,18 +88,16 @@ class _CarSignUpState extends State<CarSignUp> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 TextFormField(
                   controller: addressController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Address',
                     contentPadding: EdgeInsets.all(5),
                     labelStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        fontFamily: 'Montserrat', fontWeight: FontWeight.bold, color: Colors.black),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.blueGrey,
@@ -108,17 +105,15 @@ class _CarSignUpState extends State<CarSignUp> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Grade ',
                     contentPadding: EdgeInsets.all(5),
                     labelStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                        fontFamily: 'Montserrat', fontWeight: FontWeight.bold, color: Colors.black),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.blueGrey,
@@ -126,7 +121,7 @@ class _CarSignUpState extends State<CarSignUp> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 100,
                 ),
                 SizedBox(
@@ -141,7 +136,7 @@ class _CarSignUpState extends State<CarSignUp> {
                     elevation: 0.0,
                     minWidth: MediaQuery.of(context).size.width,
                     color: Colors.blueGrey,
-                    child: Text(
+                    child: const Text(
                       "Submit",
                       style: TextStyle(color: Colors.white),
                     ),

@@ -88,13 +88,6 @@ class ExamAdderController extends GetxController {
         return;
       }
 
-      // Save exam Record
-
-      // ignore: prefer_conditional_assignment
-      if (selectedMode == null) {
-        selectedMode = 'Admin';
-      }
-
       final exam = ExamModel(
         mode: selectedMode,
         examSubject: examSubjectController,

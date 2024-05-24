@@ -143,6 +143,11 @@ class _TeacherAccountState extends State<TeacherAccount> with SingleTickerProvid
                     title: "Grade",
                     value: controller.teacher.value.grade,
                   ),
+                  const SizedBox(height: KSizes.spaceBetweenItems),
+                  ProfileTileInfo(
+                    title: "Department",
+                    value: controller.teacher.value.department,
+                  ),
                   const SizedBox(height: KSizes.spaceBetweenItems / 2),
                   const Divider(),
                   const SizedBox(height: KSizes.spaceBetweenItems),

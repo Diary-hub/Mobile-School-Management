@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get_storage/get_storage.dart';
 
 class KLocalStorage {

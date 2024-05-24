@@ -11,7 +11,7 @@ import 'package:schooll/Widgets/DrawerListTile.dart';
 import 'package:schooll/services/repository/auth_repo.dart';
 
 class MainDrawer extends StatefulWidget {
-  const MainDrawer({Key? key}) : super(key: key);
+  const MainDrawer({super.key});
 
   @override
   _MainDrawerState createState() => _MainDrawerState();
@@ -22,90 +22,90 @@ class _MainDrawerState extends State<MainDrawer> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Card(
-          child: DrawerListTile(
-              imgpath: "stafff.jpg",
-              name: "Staff",
-              ontap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => Allstaff(),
-                  ),
-                );
-              }),
-        ),
-        Card(
-          child: DrawerListTile(
-              imgpath: "home.png",
-              name: "Home",
-              ontap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const Home(),
-                  ),
-                );
-              }),
-        ),
-        Card(
-          child: DrawerListTile(
-            imgpath: "attendance.png",
-            name: "Attendance",
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const Attendance(),
-                ),
-              );
-            },
-          ),
-        ),
+        // Card(
+        //   child: DrawerListTile(
+        //       imgpath: "stafff.jpg",
+        //       name: "Staff",
+        //       ontap: () {
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (BuildContext context) => Allstaff(),
+        //           ),
+        //         );
+        //       }),
+        // ),
+        // Card(
+        //   child: DrawerListTile(
+        //       imgpath: "home.png",
+        //       name: "Home",
+        //       ontap: () {
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (BuildContext context) => const Home(),
+        //           ),
+        //         );
+        //       }),
+        // ),
+        // Card(
+        //   child: DrawerListTile(
+        //     imgpath: "attendance.png",
+        //     name: "Attendance",
+        //     ontap: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (BuildContext context) => const Attendance(),
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ),
 
-        Card(
-            child: DrawerListTile(
-                imgpath: "profile.png",
-                name: "Student",
-                ontap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const Student(),
-                      ));
-                })),
-        Card(
-          child: DrawerListTile(
-            imgpath: "exam.png",
-            name: "Exam",
-            ontap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const ExamResult(),
-                  ));
-            },
-          ),
-        ),
-        Card(child: DrawerListTile(imgpath: "fee.png", name: "Fees", ontap: () {})),
-        Card(
-          child: DrawerListTile(imgpath: "calendar.png", name: "Time Table", ontap: () {}),
-        ),
-        Card(
-            child: DrawerListTile(
-                imgpath: "library.png",
-                name: "Subjects",
-                ontap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const Subject(),
-                      ));
-                })),
-        Card(
-          child: DrawerListTile(imgpath: "notification.png", name: "Notification", ontap: () {}),
-        ),
-        Card(child: DrawerListTile(imgpath: "bus.png", name: "Transport ", ontap: () {})),
+        // Card(
+        //     child: DrawerListTile(
+        //         imgpath: "profile.png",
+        //         name: "Student",
+        //         ontap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (BuildContext context) => const Student(),
+        //               ));
+        //         })),
+        // Card(
+        //   child: DrawerListTile(
+        //     imgpath: "exam.png",
+        //     name: "Exam",
+        //     ontap: () {
+        //       Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (BuildContext context) => const ExamResult(),
+        //           ));
+        //     },
+        //   ),
+        // ),
+        // Card(child: DrawerListTile(imgpath: "fee.png", name: "Fees", ontap: () {})),
+        // Card(
+        //   child: DrawerListTile(imgpath: "calendar.png", name: "Time Table", ontap: () {}),
+        // ),
+        // Card(
+        //     child: DrawerListTile(
+        //         imgpath: "library.png",
+        //         name: "Subjects",
+        //         ontap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (BuildContext context) => const Subject(),
+        //               ));
+        //         })),
+        // Card(
+        //   child: DrawerListTile(imgpath: "notification.png", name: "Notification", ontap: () {}),
+        // ),
+        // Card(child: DrawerListTile(imgpath: "bus.png", name: "Transport ", ontap: () {})),
 
         Card(
             child: DrawerListTile(

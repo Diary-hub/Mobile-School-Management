@@ -8,7 +8,7 @@ import 'package:schooll/Widgets/DrawerListTile.dart';
 import 'package:schooll/services/repository/auth_repo.dart';
 
 class TeacherDrawer extends StatefulWidget {
-  const TeacherDrawer({Key? key}) : super(key: key);
+  const TeacherDrawer({super.key});
 
   @override
   _TeacherDrawerState createState() => _TeacherDrawerState();
@@ -19,75 +19,75 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Card(
-          child: DrawerListTile(
-              imgpath: "home.png",
-              name: "Home",
-              ontap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const Teacher_Home(),
-                  ),
-                );
-              }),
-        ),
-        Card(
-            child: DrawerListTile(
-                imgpath: "profile.png",
-                name: "Account",
-                ontap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => TeacherAccount(),
-                      ));
-                })),
-        Card(
-          child: DrawerListTile(
-            imgpath: "attendance.png",
-            name: "Attendance",
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const Attendance(),
-                ),
-              );
-            },
-          ),
-        ),
-
-        Card(
-          child: DrawerListTile(
-            imgpath: "exam.png",
-            name: "Exam",
-            ontap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => StudentExamResult(),
-                  ));
-            },
-          ),
-        ),
         // Card(
-        //     child:
-        //         DrawerListTile(imgpath: "fee.png", name: "Fees", ontap: () {})),
-        Card(
-          child: DrawerListTile(imgpath: "calendar.png", name: "Time Table", ontap: () {}),
-        ),
-        Card(
-            child: DrawerListTile(
-                imgpath: "homework.png",
-                name: "Marks",
-                ontap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const Teacher_Home(),
-                      ));
-                })),
+        //   child: DrawerListTile(
+        //       imgpath: "home.png",
+        //       name: "Home",
+        //       ontap: () {
+        //         Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (BuildContext context) => const Teacher_Home(),
+        //           ),
+        //         );
+        //       }),
+        // ),
+        // Card(
+        //     child: DrawerListTile(
+        //         imgpath: "profile.png",
+        //         name: "Account",
+        //         ontap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (BuildContext context) => TeacherAccount(),
+        //               ));
+        //         })),
+        // Card(
+        //   child: DrawerListTile(
+        //     imgpath: "attendance.png",
+        //     name: "Attendance",
+        //     ontap: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (BuildContext context) => const Attendance(),
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ),
+
+        // Card(
+        //   child: DrawerListTile(
+        //     imgpath: "exam.png",
+        //     name: "Exam",
+        //     ontap: () {
+        //       Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (BuildContext context) => StudentExamResult(),
+        //           ));
+        //     },
+        //   ),
+        // ),
+        // // Card(
+        // //     child:
+        // //         DrawerListTile(imgpath: "fee.png", name: "Fees", ontap: () {})),
+        // Card(
+        //   child: DrawerListTile(imgpath: "calendar.png", name: "Time Table", ontap: () {}),
+        // ),
+        // Card(
+        //     child: DrawerListTile(
+        //         imgpath: "homework.png",
+        //         name: "Marks",
+        //         ontap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (BuildContext context) => const Teacher_Home(),
+        //               ));
+        //         })),
 
         Card(
             child: DrawerListTile(

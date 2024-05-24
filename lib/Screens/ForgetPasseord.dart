@@ -1,44 +1,39 @@
+// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, file_names
+
 import 'package:flutter/material.dart';
 import 'package:fzregex/utils/fzregex.dart';
 import 'package:fzregex/utils/pattern.dart';
 import 'package:schooll/Widgets/BouncingButton.dart';
 
 class ForgetPassword extends StatefulWidget {
+  const ForgetPassword({super.key});
+
   @override
   _ForgetPasswordState createState() => _ForgetPasswordState();
 }
 
-class _ForgetPasswordState extends State<ForgetPassword>
-    with SingleTickerProviderStateMixin {
+class _ForgetPasswordState extends State<ForgetPassword> with SingleTickerProviderStateMixin {
   late Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   late AnimationController animationController;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    animationController =
-        AnimationController(duration: Duration(seconds: 3), vsync: this);
-    animation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController, curve: Curves.fastOutSlowIn));
+    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    animation = Tween(begin: -1.0, end: 0.0)
+        .animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
     delayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn)));
+        parent: animationController, curve: const Interval(0.5, 1.0, curve: Curves.fastOutSlowIn)));
 
     muchDelayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
+        parent: animationController, curve: const Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
 
     LeftCurve = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Interval(0.5, 1.0, curve: Curves.easeInOut)));
+        parent: animationController, curve: const Interval(0.5, 1.0, curve: Curves.easeInOut)));
   }
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-  bool _autovalidate = false;
-  late String _email;
-  late String _rollno;
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -48,7 +43,7 @@ class _ForgetPasswordState extends State<ForgetPassword>
       builder: (BuildContext context, child) {
         return Scaffold(
           appBar: AppBar(
-            leading: BackButton(
+            leading: const BackButton(
               color: Colors.black,
             ),
             backgroundColor: Colors.white,
@@ -58,43 +53,31 @@ class _ForgetPasswordState extends State<ForgetPassword>
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Transform(
-                  transform: Matrix4.translationValues(
-                      animation.value * width, 0.0, 0.0),
+                  transform: Matrix4.translationValues(animation.value * width, 0.0, 0.0),
                   child: Center(
                     child: Stack(
                       children: <Widget>[
-                        Container(
-                          child: Text(
-                            'Forget',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 40.0,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        const Text(
+                          'Forget',
+                          style: TextStyle(
+                              color: Colors.black, fontSize: 40.0, fontWeight: FontWeight.bold),
                         ),
-                        Container(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(10.0, 35.0, 0, 0),
-                            child: Text(
-                              'Password',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 40.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(10.0, 35.0, 0, 0),
+                          child: Text(
+                            'Password',
+                            style: TextStyle(
+                                color: Colors.black, fontSize: 40.0, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(190.0, 0.0, 0, 30),
-                          child: Container(
-                            child: Text(
-                              '.',
-                              style: TextStyle(
-                                  color: Colors.green[400],
-                                  fontSize: 80.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                          child: Text(
+                            '.',
+                            style: TextStyle(
+                                color: Colors.green[400],
+                                fontSize: 80.0,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
@@ -102,59 +85,28 @@ class _ForgetPasswordState extends State<ForgetPassword>
                   ),
                 ),
               ),
-              SizedBox(height: 5.0),
+              const SizedBox(height: 5.0),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 10),
                 child: Transform(
-                  transform:
-                      Matrix4.translationValues(LeftCurve.value * width, 0, 0),
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Form(
-                            key: _formkey,
-                            child: Column(
-                              children: [
-                                TextFormField(
-                                  validator: (val) {
-                                    if (val!.isEmpty) {
-                                      return "You Must Enter Roll Number";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onSaved: (val) {
-                                    _rollno = val!;
-                                  },
-                                  decoration: InputDecoration(
-                                      labelText: 'Roll Number',
-                                      contentPadding: EdgeInsets.all(5),
-                                      labelStyle: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Colors.grey),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.blueGrey))),
-                                ),
-                                SizedBox(height: 20.0),
-                                TextFormField(
-                                  validator: (value) {
-                                    if ((Fzregex.hasMatch(
-                                            value, FzPattern.email) ==
-                                        false)) {
-                                      return "Enter Vaild Email address";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onSaved: (value) {
-                                    _email = value!;
-                                  },
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: InputDecoration(
-                                    labelText: 'EMAIL',
+                  transform: Matrix4.translationValues(LeftCurve.value * width, 0, 0),
+                  child: Column(
+                    children: <Widget>[
+                      Form(
+                          key: _formkey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                validator: (val) {
+                                  if (val!.isEmpty) {
+                                    return "You Must Enter Roll Number";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onSaved: (val) {},
+                                decoration: const InputDecoration(
+                                    labelText: 'Roll Number',
                                     contentPadding: EdgeInsets.all(5),
                                     labelStyle: TextStyle(
                                         fontFamily: 'Montserrat',
@@ -162,57 +114,73 @@ class _ForgetPasswordState extends State<ForgetPassword>
                                         fontSize: 14,
                                         color: Colors.grey),
                                     focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.blueGrey,
-                                      ),
+                                        borderSide: BorderSide(color: Colors.blueGrey))),
+                              ),
+                              const SizedBox(height: 20.0),
+                              TextFormField(
+                                validator: (value) {
+                                  if ((Fzregex.hasMatch(value!, FzPattern.email) == false)) {
+                                    return "Enter Vaild Email address";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onSaved: (value) {},
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: const InputDecoration(
+                                  labelText: 'EMAIL',
+                                  contentPadding: EdgeInsets.all(5),
+                                  labelStyle: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.grey),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.blueGrey,
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 20.0),
-                              ],
-                            )),
-                      ],
-                    ),
+                              ),
+                              const SizedBox(height: 20.0),
+                            ],
+                          )),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 5, 20.0, 5),
                 child: Transform(
-                  transform: Matrix4.translationValues(
-                      muchDelayedAnimation.value * width, 0, 0),
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Bouncing(
-                          onPress: () {
-                            if (_formkey.currentState!.validate()) {
-                              _formkey.currentState?.save();
-                              try {} catch (e) {}
-                            } else {
-                              _autovalidate = true;
-                            }
-                          },
-                          child: MaterialButton(
-                            onPressed: () {},
-                            elevation: 0.0,
-                            minWidth: MediaQuery.of(context).size.width,
-                            color: Colors.blueGrey,
-                            child: Text(
-                              "Request",
-                              style: TextStyle(color: Colors.white),
-                            ),
+                  transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
+                  child: Column(
+                    children: <Widget>[
+                      Bouncing(
+                        onPress: () {
+                          if (_formkey.currentState!.validate()) {
+                            _formkey.currentState?.save();
+                            try {} catch (e) {}
+                          } else {}
+                        },
+                        child: MaterialButton(
+                          onPressed: () {},
+                          elevation: 0.0,
+                          minWidth: MediaQuery.of(context).size.width,
+                          color: Colors.blueGrey,
+                          child: const Text(
+                            "Request",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
             ],

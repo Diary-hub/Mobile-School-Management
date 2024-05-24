@@ -7,7 +7,8 @@ import 'package:schooll/Screens/Parent_Seen/ParentAccout.dart';
 import 'package:schooll/Screens/Parent_Seen/ParentAttendance.dart';
 import 'package:schooll/Screens/Parent_Seen/ParentDetailCard.dart';
 import 'package:schooll/Screens/Parent_Seen/ParentExam.dart';
-import 'package:schooll/Screens/Subject.dart';
+import 'package:schooll/Screens/Parent_Seen/StudentMarks.dart';
+import 'package:schooll/Screens/StudentLocations.dart';
 import 'package:schooll/Screens/Teacher_Seen/TeacherDrawer.dart';
 import 'package:schooll/Widgets/BouncingButton.dart';
 import 'package:schooll/Widgets/DashboardCards.dart';
@@ -20,7 +21,7 @@ import 'package:schooll/services/controller/teacher_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Parent_Home extends StatefulWidget {
-  const Parent_Home({Key? key}) : super(key: key);
+  const Parent_Home({super.key});
 
   @override
   _Parent_HomeState createState() => _Parent_HomeState();
@@ -38,14 +39,14 @@ class _Parent_HomeState extends State<Parent_Home> with SingleTickerProviderStat
   final _url =
       'https://docs.google.com/spreadsheets/d/1rq-q4n3rEfxnsY0J8ZRtOvauiF7pf2PkeVeJwHAIw-c/';
 
-  void _launchURL() async => await launch(_url);
+  void _launchURL() async => await launchUrl(Uri.parse(_url));
 
   @override
   void initState() {
     super.initState();
     Firebase.initializeApp();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    animationController = AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = Tween(begin: -1.0, end: 0.0)
         .animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
@@ -197,12 +198,29 @@ class _Parent_HomeState extends State<Parent_Home> with SingleTickerProviderStat
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) => const Subject(),
+                                    builder: (BuildContext context) => const MarksParent(),
                                   ));
                             },
                             child: const DashboardCard(
                               name: "Marks",
                               imgpath: "homework.png",
+                            ),
+                          ),
+                        ),
+                        Transform(
+                          transform:
+                              Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
+                          child: Bouncing(
+                            onPress: () async {
+                              final st = await studentController.fetchByChangeIDtoUID(
+                                  ParentController.instance.parent.value.studentIDNumber);
+                              Get.to(() => StudentViewMap(
+                                    student: st,
+                                  ));
+                            },
+                            child: const DashboardCard(
+                              name: "Transport",
+                              imgpath: "bus.png",
                             ),
                           ),
                         ),

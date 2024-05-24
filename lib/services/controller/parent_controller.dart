@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:schooll/Screens/Student.dart';
 import 'package:schooll/services/controller/student_controller.dart';
 import 'package:schooll/services/models/parent_model.dart';
+import 'package:schooll/services/repository/auth_repo.dart';
 import 'package:schooll/services/repository/parent_repo.dart';
 
 import '../utils/helpers/network.dart';
@@ -59,9 +60,12 @@ class ParentController extends GetxController {
       UserCredential parentsData = await parentRepository.registerWithEmailAndPassword(
           emailController.text.trim(), passwordController.text);
 
+      await AuthenticationRepository.instance.logoutNew();
+      await AuthenticationRepository.instance.loginWithEmailAndPasswordSaved();
+
       final parent = ParentModel(
         type: 'Parent',
-        id: parentsData.user.uid!,
+        id: parentsData.user!.uid,
         firstName: firstNameController.text,
         lastName: lastNameController.text,
         phoneNumber: phoneController.text,

@@ -9,7 +9,7 @@ import 'package:schooll/services/controller/teacher_controller.dart';
 import 'package:schooll/services/utils/validators/validation.dart';
 
 class TeachSignUp extends StatefulWidget {
-  const TeachSignUp({Key? key}) : super(key: key);
+  const TeachSignUp({super.key});
 
   @override
   _TeachSignUpState createState() => _TeachSignUpState();
@@ -229,46 +229,54 @@ class _TeachSignUpState extends State<TeachSignUp> {
                 Transform(
                   transform: Matrix4.translationValues(0.5, 0, 0),
                   child: DropdownSearch<String>(
-                    maxHeight: 150,
                     validator: (v) => v == null ? "Please Select The Grade" : null,
-                    hint: "Please Select The Grade",
-                    mode: Mode.MENU,
-                    showSelectedItem: true,
                     items: const [
                       '1',
                       '2',
                       '3',
                       '4',
                     ],
-                    showClearButton: false,
                     onChanged: (value) {
-                      controller.gradeController = value;
+                      controller.gradeController = value!;
                     },
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Obx(
                   () => Transform(
                     transform: Matrix4.translationValues(0.5, 0, 0),
                     child: DropdownSearch<String>(
-                      maxHeight: 150,
                       validator: (v) => v == null ? "Please Select The Grade" : null,
-                      hint: "Please Select The Subject",
-                      mode: Mode.MENU,
-                      showSelectedItem: true,
                       items:
                           subjectsController.subjectList.map((element) => element.subject).toList(),
-                      showClearButton: false,
                       onChanged: (value) {
-                        controller.subjectController = value;
+                        controller.subjectController = value!;
                       },
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 100,
+                  height: 10,
+                ),
+                Transform(
+                  transform: Matrix4.translationValues(0.5, 0, 0),
+                  child: DropdownSearch<String>(
+                    validator: (v) => v == null ? "Please Select The Department" : null,
+                    items: const [
+                      'Sience Department',
+                      'ET Department',
+                      'Biology Department',
+                      'Fine Arts Department',
+                    ],
+                    onChanged: (value) {
+                      controller.departmentController = value!;
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
                 ),
                 SizedBox(
                   child: MaterialButton(

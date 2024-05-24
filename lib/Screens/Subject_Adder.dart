@@ -11,7 +11,7 @@ import 'package:schooll/services/controller/teacher_controller.dart';
 import 'package:schooll/services/utils/validators/validation.dart';
 
 class SubjectAdder extends StatefulWidget {
-  const SubjectAdder({Key? key}) : super(key: key);
+  const SubjectAdder({super.key});
 
   @override
   _SubjectAdderState createState() => _SubjectAdderState();
@@ -21,7 +21,6 @@ class _SubjectAdderState extends State<SubjectAdder> {
   @override
   Widget build(BuildContext context) {
     final controller = SubjectAdderController.instance;
-    final teacherController = TeacherController.instance;
 
     return Scaffold(
       appBar: AppBar(
@@ -43,20 +42,15 @@ class _SubjectAdderState extends State<SubjectAdder> {
                 Transform(
                   transform: Matrix4.translationValues(0.5, 0, 0),
                   child: DropdownSearch<String>(
-                    maxHeight: 150,
                     validator: (v) => v == null ? "Please Select The Grade" : null,
-                    hint: "Please Select The Grade",
-                    mode: Mode.MENU,
-                    showSelectedItem: true,
                     items: const [
                       '1',
                       '2',
                       '3',
                       '4',
                     ],
-                    showClearButton: false,
                     onChanged: (value) {
-                      controller.gradeValue = value;
+                      controller.gradeValue = value!;
                     },
                   ),
                 ),

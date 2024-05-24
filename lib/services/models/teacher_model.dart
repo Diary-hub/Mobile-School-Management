@@ -18,6 +18,7 @@ class TeacherModel {
     required this.grade,
     required this.subject,
     required this.type,
+    required this.department,
   });
 
   final String? id;
@@ -33,6 +34,7 @@ class TeacherModel {
   final String grade;
   final String subject;
   final String type;
+  final String department;
 
   String get getFirstName => firstName;
   String get getlastName => lastName;
@@ -55,28 +57,31 @@ class TeacherModel {
       'Grade': grade,
       'Type': type,
       'Subject': subject,
+      'Department': department
     };
   }
 
   static List<TeacherModel> emptyList() => []; // Define the static method
 
   static TeacherModel empty() => TeacherModel(
-      id: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      address: '',
-      birthdate: '',
-      grade: '',
-      idNumber: '',
-      livesWith: '',
-      secondName: '',
-      subject: '',
-      type: '');
+        id: '',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        email: '',
+        address: '',
+        birthdate: '',
+        grade: '',
+        idNumber: '',
+        livesWith: '',
+        secondName: '',
+        subject: '',
+        type: '',
+        department: '',
+      );
 
   // Create a UserModel instance from a Map
-  factory TeacherModel.fromSnapshot(DocumentSnapshot document) {
+  factory TeacherModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return TeacherModel(
@@ -93,6 +98,7 @@ class TeacherModel {
         secondName: data['SecondName'] ?? '',
         type: data['Type'] ?? '',
         subject: data['Subject'] ?? '',
+        department: data['Department'] ?? '',
       );
     } else {
       return TeacherModel.empty();

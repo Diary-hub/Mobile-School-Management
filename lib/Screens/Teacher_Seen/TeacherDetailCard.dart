@@ -5,7 +5,7 @@ import 'package:schooll/services/controller/student_controller.dart';
 import 'package:schooll/services/controller/teacher_controller.dart';
 
 class TeacherDetailCard extends StatefulWidget {
-  const TeacherDetailCard({Key? key}) : super(key: key);
+  const TeacherDetailCard({super.key});
 
   @override
   _TeacherDetailCardState createState() => _TeacherDetailCardState();
@@ -19,7 +19,7 @@ class _TeacherDetailCardState extends State<TeacherDetailCard> with SingleTicker
   void initState() {
     super.initState();
 
-    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    animationController = AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = Tween(begin: -1.0, end: 0.0)
         .animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
@@ -59,7 +59,7 @@ class _TeacherDetailCardState extends State<TeacherDetailCard> with SingleTicker
                   color: Colors.blueGrey,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                height: height * 0.17,
+                height: height * 0.20,
                 width: double.infinity,
                 child: Column(
                   children: [
@@ -119,6 +119,17 @@ class _TeacherDetailCardState extends State<TeacherDetailCard> with SingleTicker
                                         ),
                                         Text(
                                           "Students: ${studentController.studentList.length}",
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 100,
+                                        ),
+                                        Text(
+                                          teacherController.teacher.value.department,
                                           style: const TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,

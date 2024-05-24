@@ -49,7 +49,7 @@ class UserModel {
       );
 
   // Create a UserModel instance from a Map
-  factory UserModel.fromSnapshot(DocumentSnapshot document) {
+  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return UserModel(

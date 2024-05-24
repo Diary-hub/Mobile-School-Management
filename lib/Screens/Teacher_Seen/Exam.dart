@@ -5,12 +5,11 @@ import 'package:get/get.dart';
 import 'package:schooll/Screens/Teacher_Seen/ExamAddTeacher.dart';
 import 'package:schooll/Screens/Teacher_Seen/TeacherHome.dart';
 import 'package:schooll/Widgets/Exams/SubjectCard.dart';
-import 'package:randomizer/randomizer.dart';
 import 'package:schooll/services/controller/exam_controller.dart';
 import 'package:schooll/services/controller/teacher_controller.dart';
 
 class ExamTeacher extends StatefulWidget {
-  const ExamTeacher({Key? key}) : super(key: key);
+  const ExamTeacher({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -20,7 +19,6 @@ class ExamTeacher extends StatefulWidget {
 class _ExamTeacherState extends State<ExamTeacher> with SingleTickerProviderStateMixin {
   late Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   late AnimationController animationController;
-  Randomizer randomcolor = Randomizer();
   final controller = ExamAdderController.instance;
   final teacherController = TeacherController.instance;
   String grade = 'Your Grade';
@@ -31,7 +29,7 @@ class _ExamTeacherState extends State<ExamTeacher> with SingleTickerProviderStat
 
     //SystemChrome.setEnabledSystemUIOverlays([]);
 
-    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    animationController = AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = Tween(begin: -1.0, end: 0.0)
         .animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
@@ -90,15 +88,11 @@ class _ExamTeacherState extends State<ExamTeacher> with SingleTickerProviderStat
                             Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
                         child: DropdownSearch<String>(
                           validator: (v) => v == null ? "Please Select The Grade" : null,
-                          hint: "Please Select The Grade",
-                          mode: Mode.MENU,
-                          showSelectedItem: true,
                           items: [teacherController.teacher.value.grade],
-                          showClearButton: false,
                           selectedItem: grade,
                           onChanged: (newValue) {
                             setState(() {
-                              grade = newValue;
+                              grade = newValue!;
                               if (grade != 'All') {
                                 controller.filter = controller.examList
                                     .where((exam) => exam.grade == grade)

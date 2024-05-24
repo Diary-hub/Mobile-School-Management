@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, camel_case_types, non_constant_identifier_names
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +10,8 @@ import 'package:schooll/Widgets/BouncingButton.dart';
 import 'package:schooll/Widgets/DashboardCards.dart';
 
 class Allstaff extends StatefulWidget {
+  const Allstaff({super.key});
+
   @override
   _All_Staff createState() => _All_Staff();
 }
@@ -18,7 +22,6 @@ class _All_Staff extends State<Allstaff> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Firebase.initializeApp();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -39,7 +42,6 @@ class _All_Staff extends State<Allstaff> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     animationController.dispose();
     super.dispose();
   }
@@ -47,7 +49,6 @@ class _All_Staff extends State<Allstaff> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
 
     animationController.forward();
     return AnimatedBuilder(
@@ -141,7 +142,7 @@ class _All_Staff extends State<Allstaff> with SingleTickerProviderStateMixin {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (BuildContext context) => Employee(),
+                                          builder: (BuildContext context) => const Employee(),
                                         ));
                                   },
                                   child: const DashboardCard(
@@ -159,7 +160,7 @@ class _All_Staff extends State<Allstaff> with SingleTickerProviderStateMixin {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (BuildContext context) => Driver(),
+                                            builder: (BuildContext context) => const Driver(),
                                           ));
                                     },
                                     child: const DashboardCard(

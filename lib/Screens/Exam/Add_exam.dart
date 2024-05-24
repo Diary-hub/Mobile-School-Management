@@ -10,7 +10,7 @@ import 'package:schooll/services/controller/teacher_controller.dart';
 import 'package:schooll/services/utils/validators/validation.dart';
 
 class ExamAdder extends StatefulWidget {
-  const ExamAdder({Key? key}) : super(key: key);
+  const ExamAdder({super.key});
 
   @override
   _ExamAdderState createState() => _ExamAdderState();
@@ -48,18 +48,13 @@ class _ExamAdderState extends State<ExamAdder> {
                 Transform(
                   transform: Matrix4.translationValues(0.5, 0, 0),
                   child: DropdownSearch<String>(
-                    maxHeight: 150,
                     validator: (v) => v == null ? "Please Select The Exam" : null,
-                    hint: "Please Select The Exam",
-                    mode: Mode.MENU,
-                    showSelectedItem: true,
                     items: const [
                       "Midterm",
                       "Final",
                     ],
-                    showClearButton: false,
                     onChanged: (value) {
-                      controller.selectedMode = value;
+                      controller.selectedMode = value!;
                     },
                   ),
                 ),
@@ -68,16 +63,11 @@ class _ExamAdderState extends State<ExamAdder> {
                   () => Transform(
                     transform: Matrix4.translationValues(0.5, 0, 0),
                     child: DropdownSearch<String>(
-                      maxHeight: 150,
                       validator: (v) => v == null ? "Please Select The Grade" : null,
-                      hint: "Please Select The Subject",
-                      mode: Mode.MENU,
-                      showSelectedItem: true,
                       items:
                           subjectsController.subjectList.map((element) => element.subject).toList(),
-                      showClearButton: false,
                       onChanged: (value) {
-                        controller.examSubjectController = value;
+                        controller.examSubjectController = value!;
                       },
                     ),
                   ),
@@ -88,13 +78,9 @@ class _ExamAdderState extends State<ExamAdder> {
                 Transform(
                   transform: Matrix4.translationValues(0.5, 0, 0),
                   child: DropdownSearch<String>(
-                      maxHeight: 150,
                       validator: (v) => v == null ? "Please Select The Grade" : null,
-                      hint: "Please Select The Grade",
-                      mode: Mode.MENU,
-                      showSelectedItem: true,
                       onChanged: (value) {
-                        controller.gradeController = value;
+                        controller.gradeController = value!;
                       },
                       items: const [
                         '1',

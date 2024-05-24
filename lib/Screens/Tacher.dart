@@ -12,8 +12,7 @@ import 'package:schooll/services/controller/subject_controller.dart';
 import 'package:schooll/services/controller/teacher_controller.dart';
 
 class Teacher extends StatefulWidget {
-  
-  const Teacher({Key? key}) : super(key: key);
+  const Teacher({super.key});
 
   @override
   _TeacherState createState() => _TeacherState();
@@ -59,6 +58,7 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     animationController.forward();
+    RxString search = ''.obs;
 
     return AnimatedBuilder(
       animation: animationController,
@@ -68,7 +68,7 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
           key: scaffoldKey,
           appBar: AppBar(
             leading: IconButton(
-                onPressed: () => Get.offAll(const Home()), icon: const Icon(Icons.arrow_back)),
+                onPressed: () => Get.off(const Home()), icon: const Icon(Icons.arrow_back)),
             title: const Text(
               'Teacher',
             ),
@@ -86,20 +86,25 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.only(
                           left: 50,
+                          top: 30,
                           right: 50,
                         ),
-                        child: AnimSearchBar(
-                            width: 450,
-                            textController: textController,
-                            rtl: false,
-                            onSuffixTap: () {
+                        child: SizedBox(
+                          width: 420,
+                          child: TextFormField(
+                            decoration: const InputDecoration(border: OutlineInputBorder()),
+                            controller: textController,
+                            onChanged: (value) {
+                              search.value = value;
+                            },
+                            onSaved: (value) {},
+                            onFieldSubmitted: (value) {
                               setState(() {
-                                textController.clear();
+                                search.value = value;
                               });
                             },
-                            onSubmitted: (String searchText) {
-                              print('Search submitted: $searchText');
-                            }),
+                          ),
+                        ),
                       ),
 
                       ///////////////
@@ -139,19 +144,14 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
                             transform: Matrix4.translationValues(0.5, 0, 0),
                             child: DropdownSearch<String>(
                               selectedItem: controller.subjectController,
-                              maxHeight: 150,
                               validator: (v) => v == null ? "Please Select The Subject" : null,
-                              hint: "Please Select The Subject",
-                              mode: Mode.MENU,
-                              showSelectedItem: true,
                               items: subjectsController.subjectList
                                   .map((element) => element.subject)
                                   .toList()
                                 ..add("All"),
-                              showClearButton: false,
                               onChanged: (value) {
                                 setState(() {
-                                  controller.subjectController = value;
+                                  controller.subjectController = value!;
                                   if (value != "All") {
                                     controller.filter.value = controller.teacherList
                                         .where((teacher) =>
@@ -159,7 +159,7 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
                                         .toList();
                                     controller.length.value = controller.filter.length;
                                   } else {
-                                    controller.filter.value = controller.teacherList.value;
+                                    controller.filter.value = controller.teacherList;
                                     controller.length.value = controller.teacherList.length;
                                   }
                                 });
@@ -179,37 +179,78 @@ class _TeacherState extends State<Teacher> with SingleTickerProviderStateMixin {
                       child: ListView.builder(
                         itemCount: controller.length.value,
                         itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {},
-                            borderRadius: BorderRadius.circular(20),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.amber[100],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ListTile(
-                                    trailing: IconButton(
-                                        onPressed: () {
-                                          String id = controller.filter[index].idNumber;
-                                          controller.deletedIndex.value = index;
-                                          controller.deleteTeacherDataRecord(id);
-                                        },
-                                        icon: const Icon(Icons.delete)),
-                                    leading: const Image(
-                                        image: NetworkImage(
-                                            "https://cdn-icons-png.freepik.com/512/10559/10559204.png")),
-                                    title: Text("Name: ${controller.filter[index].getFulltName}"),
-                                    subtitle: Text(
-                                        "Grade: ${controller.filter[index].grade} \t Subject: ${controller.filter[index].subject}"),
+                          if (textController.text == '' || textController.text == ' ') {
+                            return InkWell(
+                              onTap: () {},
+                              borderRadius: BorderRadius.circular(20),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.amber[100],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListTile(
+                                      trailing: IconButton(
+                                          onPressed: () {
+                                            String id = controller.filter[index].idNumber;
+                                            controller.deletedIndex.value = index;
+                                            controller.deleteTeacherDataRecord(id);
+                                          },
+                                          icon: const Icon(Icons.delete)),
+                                      leading: const Image(
+                                          image: NetworkImage(
+                                              "https://cdn-icons-png.freepik.com/512/10559/10559204.png")),
+                                      title: Text("Name: ${controller.filter[index].getFulltName}"),
+                                      subtitle: Text(
+                                          "Grade: ${controller.filter[index].grade} \n${controller.filter[index].department}"),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
+                            );
+                          } else {
+                            if (controller.filter[index].getFulltName
+                                .toLowerCase()
+                                .contains(textController.text.toLowerCase())) {
+                              return InkWell(
+                                onTap: () {},
+                                borderRadius: BorderRadius.circular(20),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.amber[100],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ListTile(
+                                        trailing: IconButton(
+                                            onPressed: () {
+                                              String id = controller.filter[index].idNumber;
+                                              controller.deletedIndex.value = index;
+                                              controller.deleteTeacherDataRecord(id);
+                                            },
+                                            icon: const Icon(Icons.delete)),
+                                        leading: const Image(
+                                            image: NetworkImage(
+                                                "https://cdn-icons-png.freepik.com/512/10559/10559204.png")),
+                                        title:
+                                            Text("Name: ${controller.filter[index].getFulltName}"),
+                                        subtitle: Text(
+                                            "Grade: ${controller.filter[index].grade} \n${controller.filter[index].department}"),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return const Text('');
+                            }
+                          }
                         },
                       ),
                     ),

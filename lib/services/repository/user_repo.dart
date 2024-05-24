@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,10 +31,8 @@ class UserRepository extends GetxController {
   // Fetch User Data By ID
   Future<UserModel> fetchUserData() async {
     try {
-      final documentSnapshot = await _db
-          .collection("Users")
-          .doc(AuthenticationRepository.instance.authUser?.uid)
-          .get();
+      final documentSnapshot =
+          await _db.collection("Users").doc(AuthenticationRepository.instance.authUser?.uid).get();
       if (documentSnapshot.exists) {
         return UserModel.fromSnapshot(documentSnapshot);
       } else {

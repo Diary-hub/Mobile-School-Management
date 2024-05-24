@@ -1,11 +1,10 @@
 // ignore_for_file: must_be_immutable, import_of_legacy_library_into_null_safe, file_names
 import 'package:flutter/material.dart';
-import 'package:randomizer/randomizer.dart';
+
 import 'package:schooll/services/controller/exam_controller.dart';
 import 'package:schooll/services/controller/subject_controller.dart';
 
 class SubjectCard extends StatelessWidget {
-  Randomizer randomcolor = Randomizer();
   final String subjectname;
   final String chapter;
   final String date;
@@ -19,7 +18,7 @@ class SubjectCard extends StatelessWidget {
   final bool isExam;
   final bool isStudent;
 
-  SubjectCard(
+  const SubjectCard(
       {Key? key,
       required this.subjectname,
       required this.chapter,
@@ -65,7 +64,7 @@ class SubjectCard extends StatelessWidget {
                   width: 5,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: randomcolor.getrandomcolor(),
+                    color: Colors.amber,
                   ),
                   height: height * 0.1,
                 ),

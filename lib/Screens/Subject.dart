@@ -5,11 +5,10 @@ import 'package:get/get.dart';
 import 'package:schooll/Screens/Subject_Adder.dart';
 import 'package:schooll/Screens/home.dart';
 import 'package:schooll/Widgets/Exams/SubjectCard.dart';
-import 'package:randomizer/randomizer.dart';
 import 'package:schooll/services/controller/subject_controller.dart';
 
 class Subject extends StatefulWidget {
-  const Subject({Key? key}) : super(key: key);
+  const Subject({super.key});
 
   @override
   _SubjectState createState() => _SubjectState();
@@ -18,7 +17,6 @@ class Subject extends StatefulWidget {
 class _SubjectState extends State<Subject> with SingleTickerProviderStateMixin {
   late Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   late AnimationController animationController;
-  Randomizer randomcolor = Randomizer();
 
   final controller = SubjectAdderController.instance;
   String grade = 'All';
@@ -28,7 +26,7 @@ class _SubjectState extends State<Subject> with SingleTickerProviderStateMixin {
     super.initState();
     //SystemChrome.setEnabledSystemUIOverlays([]);
     controller.fetchAllSubjectRecord();
-    animationController = AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    animationController = AnimationController(duration: const Duration(seconds: 1), vsync: this);
     animation = Tween(begin: -1.0, end: 0.0)
         .animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
@@ -88,9 +86,6 @@ class _SubjectState extends State<Subject> with SingleTickerProviderStateMixin {
                             Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
                         child: DropdownSearch<String>(
                           validator: (v) => v == null ? "Please Select The Grade" : null,
-                          hint: "Please Select The Grade",
-                          mode: Mode.MENU,
-                          showSelectedItem: true,
                           items: const [
                             "All",
                             "1",
@@ -98,11 +93,10 @@ class _SubjectState extends State<Subject> with SingleTickerProviderStateMixin {
                             "3",
                             "4",
                           ],
-                          showClearButton: false,
                           selectedItem: grade,
                           onChanged: (newValue) {
                             setState(() {
-                              grade = newValue;
+                              grade = newValue!;
                               if (grade != 'All') {
                                 controller.filter = controller.subjectList
                                     .where((exam) => exam.grade == grade)

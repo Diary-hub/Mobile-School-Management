@@ -1,12 +1,13 @@
 // ignore_for_file: file_names, library_private_types_in_public_api, prefer_typing_uninitialized_variables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:schooll/Widgets/Attendance/AttendanceCard.dart';
 import 'package:schooll/services/controller/attend_controller.dart';
 
 class ParentMarkedAttendance extends StatefulWidget {
-  const ParentMarkedAttendance({Key? key}) : super(key: key);
+  const ParentMarkedAttendance({super.key});
 
   @override
   _ParentMarkedAttendanceState createState() => _ParentMarkedAttendanceState();
@@ -31,7 +32,9 @@ class _ParentMarkedAttendanceState extends State<ParentMarkedAttendance> {
               child: ListView.builder(
                 itemCount: controller.attendanceList.length,
                 itemBuilder: (context, index) {
-                  if (controller.attendanceList[index].isPermeted) {
+                  if (controller.attendanceList[index].isPermeted ||
+                      controller.attendanceList[index].parentUID !=
+                          FirebaseAuth.instance.currentUser!.uid) {
                     return Container();
                   }
                   return AttendanceCard(
